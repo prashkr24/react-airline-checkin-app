@@ -6,6 +6,7 @@ import Header from "./components/common/Header";
 import PageNotFound from "./components/PageNotFound";
 import { Route, Switch } from "react-router-dom";
 
+
 const App = () => (
   <div className="container-fluid">
       <Header />

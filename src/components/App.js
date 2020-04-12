@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import HomePage from './home/HomePage'
 import AboutPage from './about/AboutPage'
 import CoursesPage from './courses/CoursesPage'
 import Header from './common/Header'
 import PageNotFound from './PageNotFound'
-import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
+import { Route,Switch } from 'react-router-dom';
+require('dotenv').config();
+process.env.API_URL = 'http://localhost:3001';
 
 const App = () => (
     <div className="container-fluid">
