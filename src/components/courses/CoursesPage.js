@@ -90,6 +90,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
+      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
     },
   };
