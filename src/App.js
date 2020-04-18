@@ -12,13 +12,16 @@ import { ToastContainer } from "react-toastify";
 import DashboardPage from "./components/dashboard/dashboardPage";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
+import CheckInPage from "./components/passenger/checkInPage";
+import InFlightPage from "./components/passenger/inflightpage";
+import SignInPage from "./components/login/signInPage";
 
 const App = () => (
   <>
     <CssBaseline />
     <Header />
     <Container
-      style={{ backgroundColor: "#cfe8fc", height: "80vh", paddingTop: "10px" }}
+      style={{ backgroundColor: "#cfe8fc", height: "90vh", paddingTop: "10px" }}
     >
       <Switch>
         <Route exact path="/" component={HomePage} />
@@ -30,6 +33,9 @@ const App = () => (
         <Route path="/dashboard" component={DashboardPage} />
         <Route path="/passenger" component={ManagePassengerPage} />
         <Route path="/ancillary" component={AncillaryServicePage} />
+        <Route path="/checkin" component={CheckInPage} />
+        <Route path="/inflight" component={InFlightPage} />
+        <Route path="/signin" component={SignInPage} />
 
         <Route component={PageNotFound} />
       </Switch>

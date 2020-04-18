@@ -1,7 +1,7 @@
 import React from "react";
 import MaterialTable from "material-table";
 
-export default function AncillaryServicePage() {
+export default function CheckInPage() {
   const [state, setState] = React.useState({
     columns: [
       {
@@ -10,14 +10,23 @@ export default function AncillaryServicePage() {
         lookup: { 1: "Flight 1", 2: "Flight 2", 3: "Flight 3" },
       },
       {
-        title: "Special Meals",
-        field: "meals",
-        lookup: { 1: "Meal 1", 2: "Meal 2", 3: "Meal 3" },
+        title: "Passenger",
+        field: "passenger",
+        lookup: { 1: "Passenger 1", 2: "Passenger 2", 3: "Passenger 3" },
       },
       {
-        title: "Shopping Items",
-        field: "items",
-        lookup: { 1: "Item 1", 2: "Item 2", 3: "Item 3" },
+        title: "Checked In",
+        field: "checkedIn",
+        lookup: { 1: "Yes", 2: "No" },
+      },
+      {
+        title: "Ancillary",
+        field: "ancillary",
+        lookup: { 1: "Wheel chair", 2: "Infants" },
+      },
+      {
+        title: "Seat No",
+        field: "seatno",
       },
     ],
     data: [],
@@ -25,7 +34,7 @@ export default function AncillaryServicePage() {
 
   return (
     <MaterialTable
-      title="Ancillary services per flight"
+      title="Flight Check-in"
       columns={state.columns}
       data={state.data}
       editable={{
