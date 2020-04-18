@@ -4,10 +4,11 @@ import AboutPage from "./components/about/AboutPage";
 import CoursesPage from "./components/courses/CoursesPage";
 import ManageCoursePage from "./components/courses/ManageCoursePage";
 import Header from "./components/common/Header";
+import ManagePassengerPage from "./components/passenger/managePassengerPage";
 import PageNotFound from "./components/PageNotFound";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import DashboardPage from "./components/common/dashboard/dashboardPage";
+import DashboardPage from "./components/dashboard/dashboardPage";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 
@@ -26,6 +27,7 @@ const App = () => (
         <Route path="/course" component={ManageCoursePage} />
 
         <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/passenger" component={ManagePassengerPage} />
 
         <Route component={PageNotFound} />
       </Switch>
