@@ -5,6 +5,7 @@ import CoursesPage from "./components/courses/CoursesPage";
 import ManageCoursePage from "./components/courses/ManageCoursePage";
 import Header from "./components/common/Header";
 import ManagePassengerPage from "./components/passenger/managePassengerPage";
+import AncillaryServicePage from "./components/passenger/ancillaryServicePage";
 import PageNotFound from "./components/PageNotFound";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -28,6 +29,7 @@ const App = () => (
 
         <Route path="/dashboard" component={DashboardPage} />
         <Route path="/passenger" component={ManagePassengerPage} />
+        <Route path="/ancillary" component={AncillaryServicePage} />
 
         <Route component={PageNotFound} />
       </Switch>
