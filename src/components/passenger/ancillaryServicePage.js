@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
+import { connect } from "react-redux";
+import {
+  loadAncillaryServices,
+  saveAncillaryService,
+  deleteAncillaryService,
+} from "../../redux/actions/ancillarySeriveAction";
+import propTypes from "prop-types";
+import { toast } from "react-toastify";
 
-export default function AncillaryServicePage() {
-  const [state, setState] = React.useState({
+function ManageAncillaryServicePage({
+  ancillaryServices,
+  loadAncillaryServices,
+  saveAncillaryService,
+  deleteAncillaryService,
+  ...props
+}) {
+  console.log("ancillaryServices list", ancillaryServices);
+  const [state, setState] = useState({
     columns: [
       {
         title: "Flight",
@@ -20,51 +35,75 @@ export default function AncillaryServicePage() {
         lookup: { 1: "Item 1", 2: "Item 2", 3: "Item 3" },
       },
     ],
-    data: [],
   });
+
+  useEffect(() => {
+    if (ancillaryServices.length === 0) {
+      loadAncillaryServices().catch((error) => {
+        console.log("Loading courses failed" + error);
+      });
+    }
+  });
+
+  function handleSave(ancillaryService) {
+    saveAncillaryService(ancillaryService)
+      .then(() => {})
+      .catch((error) => {});
+  }
+
+  async function handleDeleteAncillaryService(ancillaryService) {
+    console.log("Delete AncillaryService", ancillaryService);
+    try {
+      await deleteAncillaryService(ancillaryService);
+    } catch (error) {}
+  }
 
   return (
     <MaterialTable
-      title="Ancillary services per flight"
+      title="Manage AncillaryService"
       columns={state.columns}
-      data={state.data}
+      data={ancillaryServices}
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
+            handleSave({ ...newData, id: null });
+            resolve();
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
+            resolve();
+            handleSave(newData);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
+            resolve();
+            handleDeleteAncillaryService(oldData);
           }),
       }}
     />
   );
 }
+
+ManageAncillaryServicePage.propTypes = {
+  courses: propTypes.array.isRequired,
+  loadAncillaryServices: propTypes.func.isRequired,
+  saveAncillaryService: propTypes.func.isRequired,
+  deleteAncillaryService: propTypes.func.isRequired,
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    ancillaryServices: state.ancillaryServices,
+  };
+}
+
+const mapDispatchToProps = {
+  loadAncillaryServices,
+  saveAncillaryService,
+  deleteAncillaryService,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ManageAncillaryServicePage);

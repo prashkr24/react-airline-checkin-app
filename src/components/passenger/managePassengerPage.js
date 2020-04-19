@@ -39,7 +39,7 @@ function ManagePassengerPage({
       .catch((error) => {});
   }
 
-  async function handleDeleteCourse(passenger) {
+  async function handleDeletePassenger(passenger) {
     console.log("Delete Passenger", passenger);
     try {
       await deletePassenger(passenger);
@@ -65,7 +65,7 @@ function ManagePassengerPage({
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
             resolve();
-            handleDeleteCourse(oldData);
+            handleDeletePassenger(oldData);
           }),
       }}
     />
@@ -74,8 +74,8 @@ function ManagePassengerPage({
 
 ManagePassengerPage.propTypes = {
   courses: propTypes.array.isRequired,
-  loadCourses: propTypes.func.isRequired,
-  saveCourse: propTypes.func.isRequired,
+  loadPassengers: propTypes.func.isRequired,
+  savePassenger: propTypes.func.isRequired,
   deletePassenger: propTypes.func.isRequired,
 };
 

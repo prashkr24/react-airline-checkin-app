@@ -64,6 +64,15 @@ server.post("/passengers/", function (req, res, next) {
   }
 });
 
+server.post("/ancillaryServices/", function (req, res, next) {
+  const error = validateAncillaryService(req.body);
+  if (error) {
+    res.status(400).send(error);
+  } else {
+    next();
+  }
+});
+
 // Use default router
 server.use(router);
 
@@ -87,5 +96,12 @@ function validateCourse(passenger) {
   if (!passenger.name) return "Name is required.";
   if (!passenger.passport) return "Passport is required.";
   if (!passenger.address) return "Address is required.";
+  return "";
+}
+
+function validateAncillaryService(ancillaryService) {
+  if (!ancillaryService.flight) return "Flight is required.";
+  if (!ancillaryService.meals) return "Meals is required.";
+  if (!ancillaryService.items) return "Itmes is required.";
   return "";
 }

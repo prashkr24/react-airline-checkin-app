@@ -88,10 +88,13 @@ const passengers = [
   { id: 1, name: "Shijith", passport: "12345", address: "address 1" },
 ];
 
+const ancillaryServices = [];
+
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
   newCourse,
   courses,
   authors,
   passengers,
+  ancillaryServices,
 };

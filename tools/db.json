@@ -89,29 +89,24 @@
     {
       "id": 1,
       "name": "Shijith",
-      "passport": "1111",
-      "address": "Bangalore"
+      "passport": "12345",
+      "address": "address 1"
+    }
+  ],
+  "ancillaryServices": [
+    {
+      "flight": "1",
+      "meals": "1",
+      "items": "1",
+      "id": 1,
+      "createdAt": 1587289516485
     },
     {
-      "name": "Sinju",
-      "passport": "2222",
-      "address": "Thrissur",
+      "flight": "2",
+      "meals": "2",
+      "items": "2",
       "id": 2,
-      "createdAt": 1587286144775
-    },
-    {
-      "name": "Tara",
-      "passport": "3333",
-      "address": "Thrissur",
-      "id": 3,
-      "createdAt": 1587286157172
-    },
-    {
-      "name": "Jeeva",
-      "passport": "4444",
-      "address": "Thrissur",
-      "id": 4,
-      "createdAt": 1587286168851
+      "createdAt": 1587289528986
     }
   ]
 }
