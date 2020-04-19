@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
+import { connect } from "react-redux";
+import {
+  loadCheckInPassengers,
+  saveCheckInPassenger,
+  deleteCheckInPassenger,
+} from "../../redux/actions/checkInPassengerAction";
+import { loadPassengers } from "../../redux/actions/passengerAction";
+import { loadAncillaryServices } from "../../redux/actions/ancillarySeriveAction";
+import propTypes from "prop-types";
+import { toast } from "react-toastify";
 
-export default function InFlightPage() {
-  const [state, setState] = React.useState({
+function InFlightPage({
+  checkInPassengers,
+  loadCheckInPassengers,
+  saveCheckInPassenger,
+  deleteCheckInPassenger,
+  loadPassengers,
+  loadAncillaryServices,
+  passengers,
+  ancillaryServices,
+  ...props
+}) {
+  const [state, setState] = useState({
     columns: [
       {
         title: "Flight",
@@ -12,7 +32,7 @@ export default function InFlightPage() {
       {
         title: "Passenger",
         field: "passenger",
-        lookup: { 1: "Passenger 1", 2: "Passenger 2", 3: "Passenger 3" },
+        lookup: { 1: "Shijith", 2: "Sinju", 3: "Tara", 4: "Jeeva" },
       },
       {
         title: "Checked In",
@@ -21,59 +41,90 @@ export default function InFlightPage() {
       },
       {
         title: "Ancillary",
-        field: "ancillary",
-        lookup: { 1: "Wheel chair", 2: "Infants" },
+        field: "service",
+        lookup: {
+          1: "Special Meal",
+          2: "Shopping Item 1",
+          3: "Shopping Item 2",
+        },
       },
       {
         title: "Seat No",
         field: "seatno",
       },
     ],
-    data: [],
   });
+
+  useEffect(() => {
+    if (checkInPassengers.length === 0) {
+      loadCheckInPassengers().catch((error) => {
+        console.log("Loading checkInPassengers failed" + error);
+      });
+    }
+  });
+
+  function handleSave(checkInPassenger) {
+    saveCheckInPassenger(checkInPassenger)
+      .then(() => {})
+      .catch((error) => {});
+  }
+
+  async function handleDeleteCheckInPassenger(checkInPassenger) {
+    console.log("Delete CheckInPassenger", checkInPassenger);
+    try {
+      await deleteCheckInPassenger(checkInPassenger);
+    } catch (error) {}
+  }
 
   return (
     <MaterialTable
-      title="Flight Check-in"
+      title="In Flight"
       columns={state.columns}
-      data={state.data}
+      data={checkInPassengers}
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
+            handleSave({ ...newData, id: null });
+            resolve();
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
+            resolve();
+            handleSave(newData);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
+            resolve();
+            handleDeleteCheckInPassenger(oldData);
           }),
       }}
     />
   );
 }
+
+InFlightPage.propTypes = {
+  checkInPassengers: propTypes.array.isRequired,
+  loadCheckInPassengers: propTypes.func.isRequired,
+  saveCheckInPassenger: propTypes.func.isRequired,
+  deleteCheckInPassenger: propTypes.func.isRequired,
+  loadPassengers: propTypes.func.isRequired,
+  loadAncillaryServices: propTypes.func.isRequired,
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    checkInPassengers: state.checkInPassengers,
+    passengers: state.passengers,
+    ancillaryServices: state.ancillaryServices,
+  };
+}
+
+const mapDispatchToProps = {
+  loadCheckInPassengers,
+  saveCheckInPassenger,
+  deleteCheckInPassenger,
+  loadPassengers,
+  loadAncillaryServices,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InFlightPage);

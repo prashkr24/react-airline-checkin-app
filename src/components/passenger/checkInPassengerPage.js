@@ -6,6 +6,8 @@ import {
   saveCheckInPassenger,
   deleteCheckInPassenger,
 } from "../../redux/actions/checkInPassengerAction";
+import { loadPassengers } from "../../redux/actions/passengerAction";
+import { loadAncillaryServices } from "../../redux/actions/ancillarySeriveAction";
 import propTypes from "prop-types";
 import { toast } from "react-toastify";
 
@@ -14,9 +16,12 @@ function CheckInPassengerPage({
   loadCheckInPassengers,
   saveCheckInPassenger,
   deleteCheckInPassenger,
+  loadPassengers,
+  loadAncillaryServices,
+  passengers,
+  ancillaryServices,
   ...props
 }) {
-  console.log("checkInPassengers list", checkInPassengers);
   const [state, setState] = useState({
     columns: [
       {
@@ -27,7 +32,7 @@ function CheckInPassengerPage({
       {
         title: "Passenger",
         field: "passenger",
-        lookup: { 1: "Passenger 1", 2: "Passenger 2", 3: "Passenger 3" },
+        lookup: { 1: "Shijith", 2: "Sinju", 3: "Tara", 4: "Jeeva" },
       },
       {
         title: "Checked In",
@@ -36,8 +41,12 @@ function CheckInPassengerPage({
       },
       {
         title: "Ancillary",
-        field: "ancillary",
-        lookup: { 1: "Wheel chair", 2: "Infants" },
+        field: "service",
+        lookup: {
+          1: "Special Meal",
+          2: "Shopping Item 1",
+          3: "Shopping Item 2",
+        },
       },
       {
         title: "Seat No",
@@ -69,7 +78,7 @@ function CheckInPassengerPage({
 
   return (
     <MaterialTable
-      title="Manage CheckInPassenger"
+      title="Check-In Passenger"
       columns={state.columns}
       data={checkInPassengers}
       editable={{
@@ -98,11 +107,15 @@ CheckInPassengerPage.propTypes = {
   loadCheckInPassengers: propTypes.func.isRequired,
   saveCheckInPassenger: propTypes.func.isRequired,
   deleteCheckInPassenger: propTypes.func.isRequired,
+  loadPassengers: propTypes.func.isRequired,
+  loadAncillaryServices: propTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     checkInPassengers: state.checkInPassengers,
+    passengers: state.passengers,
+    ancillaryServices: state.ancillaryServices,
   };
 }
 
@@ -110,6 +123,8 @@ const mapDispatchToProps = {
   loadCheckInPassengers,
   saveCheckInPassenger,
   deleteCheckInPassenger,
+  loadPassengers,
+  loadAncillaryServices,
 };
 
 export default connect(

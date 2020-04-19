@@ -89,45 +89,79 @@
     {
       "id": 1,
       "name": "Shijith",
-      "passport": "12345",
+      "passport": "1111",
+      "address": "address 1"
+    },
+    {
+      "id": 2,
+      "name": "sinju",
+      "passport": "2222",
+      "address": "address 1"
+    },
+    {
+      "id": 3,
+      "name": "Tara",
+      "passport": "3333",
+      "address": "address 1"
+    },
+    {
+      "id": 4,
+      "name": "Jeeva",
+      "passport": "4444",
       "address": "address 1"
     }
   ],
   "ancillaryServices": [
     {
-      "flight": "1",
-      "service": "1",
-      "id": 1,
-      "createdAt": 1587293606529
+      "flight": 1,
+      "service": 1,
+      "id": 1
+    },
+    {
+      "flight": 1,
+      "service": 2,
+      "id": 2
+    },
+    {
+      "flight": 1,
+      "service": 3,
+      "id": 3
     }
   ],
   "checkInPassengers": [
     {
-      "flight": "1",
-      "passenger": "1",
-      "checkedIn": "1",
-      "ancillary": "1",
-      "seatno": "111",
       "id": 1,
-      "createdAt": 1587293625190
+      "flight": 1,
+      "passenger": 1,
+      "service": 1,
+      "checkedIn": 1,
+      "seatno": "A101"
+    },
+    {
+      "id": 2,
+      "flight": 1,
+      "passenger": 2,
+      "service": 1,
+      "checkedIn": 1,
+      "seatno": "A102"
     },
     {
       "flight": "1",
-      "passenger": "2",
+      "passenger": "3",
       "checkedIn": "1",
-      "ancillary": "1",
-      "seatno": "102",
-      "id": 2,
-      "createdAt": 1587294076306
+      "service": "2",
+      "seatno": "A103",
+      "id": 3,
+      "createdAt": 1587319965407
     },
     {
-      "flight": "2",
-      "passenger": "2",
+      "flight": "1",
+      "passenger": "4",
       "checkedIn": "1",
-      "ancillary": "1",
-      "seatno": "111",
-      "id": 3,
-      "createdAt": 1587294109578
+      "service": "3",
+      "seatno": "A104",
+      "id": 4,
+      "createdAt": 1587319984076
     }
   ]
 }

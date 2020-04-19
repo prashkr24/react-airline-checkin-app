@@ -28,7 +28,7 @@ function ManagePassengerPage({
   useEffect(() => {
     if (passengers.length === 0) {
       loadPassengers().catch((error) => {
-        console.log("Loading courses failed" + error);
+        console.log("Loading passengers failed" + error);
       });
     }
   });
@@ -73,7 +73,7 @@ function ManagePassengerPage({
 }
 
 ManagePassengerPage.propTypes = {
-  courses: propTypes.array.isRequired,
+  passengers: propTypes.array.isRequired,
   loadPassengers: propTypes.func.isRequired,
   savePassenger: propTypes.func.isRequired,
   deletePassenger: propTypes.func.isRequired,
