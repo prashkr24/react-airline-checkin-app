@@ -4,8 +4,6 @@ export default function passengerReducer(
   state = initialState.passengers,
   action
 ) {
-  console.log("state", state);
-  console.log("action", action);
 
   switch (action.type) {
     case types.CREATE_PASSENGER_SUCCESS:

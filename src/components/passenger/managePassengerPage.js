@@ -35,9 +35,7 @@ function ManagePassengerPage({
 
   function handleSave(passenger) {
     savePassenger(passenger)
-      .then(() => {
-        toast.success("Course saved.");
-      })
+      .then(() => {})
       .catch((error) => {});
   }
 
@@ -45,9 +43,7 @@ function ManagePassengerPage({
     console.log("Delete Passenger", passenger);
     try {
       await deletePassenger(passenger);
-    } catch (error) {
-      toast.error("Delete failed. " + error.message, { autoClose: false });
-    }
+    } catch (error) {}
   }
 
   return (
