@@ -10,3 +10,8 @@ export const API_CALL_ERROR = "API_CALL_ERROR";
 // If it had one, our apiCallsInProgress counter would be decremented below zero
 // because we're not incrementing the number of apiCallInProgress when the delete request begins.
 export const DELETE_COURSE_OPTIMISTIC = "DELETE_COURSE_OPTIMISTIC";
+
+export const LOAD_PASSENGERS_SUCCESS = "LOAD_PASSENGERS_SUCCESS";
+export const CREATE_PASSENGER_SUCCESS = "CREATE_PASSENGER_SUCCESS";
+export const UPDATE_PASSENGER_SUCCESS = "UPDATE_PASSENGER_SUCCESS";
+export const DELETE_PASSENGER_OPTIMISTIC = "DELETE_PASSENGER_OPTIMISTIC";

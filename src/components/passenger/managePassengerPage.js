@@ -1,61 +1,101 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
+import { connect } from "react-redux";
+import {
+  loadPassengers,
+  savePassenger,
+  deletePassenger,
+} from "../../redux/actions/passengerAction";
+import propTypes from "prop-types";
+import { toast } from "react-toastify";
 
-export default function ManagePassengerPage() {
-  const [state, setState] = React.useState({
+function ManagePassengerPage({
+  passengers,
+  loadPassengers,
+  savePassenger,
+  deletePassenger,
+  ...props
+}) {
+  console.log("passengers list", passengers);
+  const [state, setState] = useState({
     columns: [
       { title: "Name", field: "name" },
       { title: "Passport Details", field: "passport" },
       { title: "Address", field: "address" },
     ],
-    data: [
-      { name: "Shijith", passport: "1234555", address:"Bangalore"},
-      { name: "Sinju", passport: "234455", address:"Bangalore"},
-    ],
   });
+
+  useEffect(() => {
+    if (passengers.length === 0) {
+      loadPassengers().catch((error) => {
+        console.log("Loading courses failed" + error);
+      });
+    }
+  });
+
+  function handleSave(passenger) {
+    savePassenger(passenger)
+      .then(() => {
+        toast.success("Course saved.");
+      })
+      .catch((error) => {});
+  }
+
+  async function handleDeleteCourse(passenger) {
+    console.log("Delete Passenger", passenger);
+    try {
+      await deletePassenger(passenger);
+    } catch (error) {
+      toast.error("Delete failed. " + error.message, { autoClose: false });
+    }
+  }
 
   return (
     <MaterialTable
       title="Manage Passenger"
       columns={state.columns}
-      data={state.data}
+      data={passengers}
       editable={{
         onRowAdd: (newData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.push(newData);
-                return { ...prevState, data };
-              });
-            }, 600);
+            handleSave({ ...newData, id: null });
+            resolve();
           }),
         onRowUpdate: (newData, oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              if (oldData) {
-                setState((prevState) => {
-                  const data = [...prevState.data];
-                  data[data.indexOf(oldData)] = newData;
-                  return { ...prevState, data };
-                });
-              }
-            }, 600);
+            resolve();
+            handleSave(newData);
           }),
         onRowDelete: (oldData) =>
           new Promise((resolve) => {
-            setTimeout(() => {
-              resolve();
-              setState((prevState) => {
-                const data = [...prevState.data];
-                data.splice(data.indexOf(oldData), 1);
-                return { ...prevState, data };
-              });
-            }, 600);
+            resolve();
+            handleDeleteCourse(oldData);
           }),
       }}
     />
   );
 }
+
+ManagePassengerPage.propTypes = {
+  courses: propTypes.array.isRequired,
+  loadCourses: propTypes.func.isRequired,
+  saveCourse: propTypes.func.isRequired,
+  deletePassenger: propTypes.func.isRequired,
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    passengers: state.passengers,
+  };
+}
+
+const mapDispatchToProps = {
+  loadPassengers,
+  savePassenger,
+  deletePassenger,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ManagePassengerPage);
