@@ -3,5 +3,6 @@ export default {
   authors: [],
   passengers: [],
   ancillaryServices: [],
+  checkInPassengers: [],
   apiCallsInProgress: 0,
 };

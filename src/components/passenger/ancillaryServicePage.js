@@ -25,14 +25,9 @@ function ManageAncillaryServicePage({
         lookup: { 1: "Flight 1", 2: "Flight 2", 3: "Flight 3" },
       },
       {
-        title: "Special Meals",
-        field: "meals",
-        lookup: { 1: "Meal 1", 2: "Meal 2", 3: "Meal 3" },
-      },
-      {
-        title: "Shopping Items",
-        field: "items",
-        lookup: { 1: "Item 1", 2: "Item 2", 3: "Item 3" },
+        title: "Service",
+        field: "service",
+        lookup: { 1: "Special Meal", 2: "Shopping Item 1", 3: "Shopping Item 2" },
       },
     ],
   });

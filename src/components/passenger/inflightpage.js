@@ -1,7 +1,7 @@
 import React from "react";
 import MaterialTable from "material-table";
 
-export default function CheckInPage() {
+export default function InFlightPage() {
   const [state, setState] = React.useState({
     columns: [
       {

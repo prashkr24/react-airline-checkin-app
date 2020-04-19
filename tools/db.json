@@ -96,17 +96,38 @@
   "ancillaryServices": [
     {
       "flight": "1",
-      "meals": "1",
-      "items": "1",
+      "service": "1",
       "id": 1,
-      "createdAt": 1587289516485
+      "createdAt": 1587293606529
+    }
+  ],
+  "checkInPassengers": [
+    {
+      "flight": "1",
+      "passenger": "1",
+      "checkedIn": "1",
+      "ancillary": "1",
+      "seatno": "111",
+      "id": 1,
+      "createdAt": 1587293625190
+    },
+    {
+      "flight": "1",
+      "passenger": "2",
+      "checkedIn": "1",
+      "ancillary": "1",
+      "seatno": "102",
+      "id": 2,
+      "createdAt": 1587294076306
     },
     {
       "flight": "2",
-      "meals": "2",
-      "items": "2",
-      "id": 2,
-      "createdAt": 1587289528986
+      "passenger": "2",
+      "checkedIn": "1",
+      "ancillary": "1",
+      "seatno": "111",
+      "id": 3,
+      "createdAt": 1587294109578
     }
   ]
 }

@@ -90,6 +90,8 @@ const passengers = [
 
 const ancillaryServices = [];
 
+const checkInPassengers = [];
+
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
   newCourse,
@@ -97,4 +99,5 @@ module.exports = {
   authors,
   passengers,
   ancillaryServices,
+  checkInPassengers,
 };

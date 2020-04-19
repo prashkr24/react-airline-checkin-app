@@ -12,7 +12,7 @@ import { ToastContainer } from "react-toastify";
 import DashboardPage from "./components/dashboard/dashboardPage";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import CheckInPage from "./components/passenger/checkInPage";
+import CheckInPassengerPage from "./components/passenger/checkInPassengerPage";
 import InFlightPage from "./components/passenger/inflightpage";
 import SignInPage from "./components/login/signInPage";
 
@@ -33,7 +33,7 @@ const App = () => (
         <Route path="/dashboard" component={DashboardPage} />
         <Route path="/passenger" component={ManagePassengerPage} />
         <Route path="/ancillary" component={AncillaryServicePage} />
-        <Route path="/checkin" component={CheckInPage} />
+        <Route path="/checkin" component={CheckInPassengerPage} />
         <Route path="/inflight" component={InFlightPage} />
         <Route path="/signin" component={SignInPage} />
 
