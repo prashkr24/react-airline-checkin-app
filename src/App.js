@@ -24,7 +24,7 @@ const App = () => (
       style={{ backgroundColor: "#cfe8fc", height: "90vh", paddingTop: "10px" }}
     >
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={DashboardPage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/courses" component={CoursesPage} />
         <Route path="/course/:slug" component={ManageCoursePage} />
