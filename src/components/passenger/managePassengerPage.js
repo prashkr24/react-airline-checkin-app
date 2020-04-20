@@ -1,95 +1,84 @@
-import React, { useEffect, useState } from "react";
-import MaterialTable from "material-table";
-import { connect } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import MaterialTable from 'material-table'
+import { connect } from 'react-redux'
 import {
-  loadPassengers,
-  savePassenger,
-  deletePassenger,
-} from "../../redux/actions/passengerAction";
-import propTypes from "prop-types";
+    loadPassengers,
+    savePassenger,
+    deletePassenger,
+} from '../../redux/actions/passengerAction'
+import propTypes from 'prop-types'
 
 function ManagePassengerPage({
-  passengers,
-  loadPassengers,
-  savePassenger,
-  deletePassenger,
-  ...props
+    passengers,
+    loadPassengers,
+    savePassenger,
+    deletePassenger,
 }) {
-  const [state] = useState({
-    columns: [
-      { title: "Name", field: "name" },
-      { title: "Passport Details", field: "passport" },
-      { title: "Address", field: "address" },
-    ],
-  });
+    const [state] = useState({
+        columns: [
+            { title: 'Name', field: 'name' },
+            { title: 'Passport Details', field: 'passport' },
+            { title: 'Address', field: 'address' },
+        ],
+    })
 
-  useEffect(() => {
-    if (passengers.length === 0) {
-      loadPassengers().catch((error) => {
-        console.log("Loading passengers failed" + error);
-      });
+    useEffect(() => {
+        if (passengers.length === 0) {
+            loadPassengers().catch(() => {})
+        }
+    }, [])
+
+    function handleSave(passenger) {
+        savePassenger(passenger)
     }
-  }, []);
 
-  function handleSave(passenger) {
-    savePassenger(passenger)
-      .then(() => {})
-      .catch((error) => {});
-  }
+    async function handleDeletePassenger(passenger) {
+        await deletePassenger(passenger)
+    }
 
-  async function handleDeletePassenger(passenger) {
-    console.log("Delete Passenger", passenger);
-    try {
-      await deletePassenger(passenger);
-    } catch (error) {}
-  }
-
-  return (
-    <MaterialTable
-      title="Manage Passenger"
-      columns={state.columns}
-      data={passengers}
-      editable={{
-        onRowAdd: (newData) =>
-          new Promise((resolve) => {
-            handleSave({ ...newData, id: null });
-            resolve();
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise((resolve) => {
-            resolve();
-            handleSave(newData);
-          }),
-        onRowDelete: (oldData) =>
-          new Promise((resolve) => {
-            resolve();
-            handleDeletePassenger(oldData);
-          }),
-      }}
-    />
-  );
+    return (
+        <MaterialTable
+            title="Manage Passenger"
+            columns={state.columns}
+            data={passengers}
+            editable={{
+                onRowAdd: (newData) =>
+                    new Promise((resolve) => {
+                        handleSave({ ...newData, id: null })
+                        resolve()
+                    }),
+                onRowUpdate: (newData) =>
+                    new Promise((resolve) => {
+                        resolve()
+                        handleSave(newData)
+                    }),
+                onRowDelete: (oldData) =>
+                    new Promise((resolve) => {
+                        resolve()
+                        handleDeletePassenger(oldData)
+                    }),
+            }}
+        />
+    )
 }
 
 ManagePassengerPage.propTypes = {
-  passengers: propTypes.array.isRequired,
-  loadPassengers: propTypes.func.isRequired,
-  savePassenger: propTypes.func.isRequired,
-  deletePassenger: propTypes.func.isRequired,
-};
+    passengers: propTypes.array.isRequired,
+    loadPassengers: propTypes.func.isRequired,
+    savePassenger: propTypes.func.isRequired,
+    deletePassenger: propTypes.func.isRequired,
+}
 
-function mapStateToProps(state, ownProps) {
-  return {
-    passengers: state.passengers,
-  };
+function mapStateToProps(state) {
+    return {
+        passengers: state.passengers,
+    }
 }
 
 const mapDispatchToProps = {
-  loadPassengers,
-  savePassenger,
-  deletePassenger,
-};
+    loadPassengers,
+    savePassenger,
+    deletePassenger,
+}
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ManagePassengerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManagePassengerPage)
