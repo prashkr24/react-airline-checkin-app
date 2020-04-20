@@ -92,9 +92,9 @@ const passengers = [
 ];
 
 const ancillaryServices = [
-  { flight: 1, service: 1, id: 1 },
-  { flight: 1, service: 2, id: 2 },
-  { flight: 1, service: 3, id: 3 },
+  { flight: 1, service: "Special Meal", id: 1 },
+  { flight: 1, service: "Shopping Item 1", id: 2 },
+  { flight: 1, service: "Shopping Item 2", id: 3 },
 ];
 
 const checkInPassengers = [

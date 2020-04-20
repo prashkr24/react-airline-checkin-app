@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MaterialTable from "material-table";
 import { connect } from "react-redux";
 import {
@@ -9,59 +9,71 @@ import {
 import { loadPassengers } from "../../redux/actions/passengerAction";
 import { loadAncillaryServices } from "../../redux/actions/ancillarySeriveAction";
 import propTypes from "prop-types";
-import { toast } from "react-toastify";
 
 function CheckInPassengerPage({
   checkInPassengers,
   loadCheckInPassengers,
   saveCheckInPassenger,
   deleteCheckInPassenger,
-  loadPassengers,
   loadAncillaryServices,
+  loadPassengers,
   passengers,
   ancillaryServices,
   ...props
 }) {
-  const [state, setState] = useState({
-    columns: [
-      {
-        title: "Flight",
-        field: "flight",
-        lookup: { 1: "Flight 1", 2: "Flight 2", 3: "Flight 3" },
-      },
-      {
-        title: "Passenger",
-        field: "passenger",
-        lookup: { 1: "Shijith", 2: "Sinju", 3: "Tara", 4: "Jeeva" },
-      },
-      {
-        title: "Checked In",
-        field: "checkedIn",
-        lookup: { 1: "Yes", 2: "No" },
-      },
-      {
-        title: "Ancillary",
-        field: "service",
-        lookup: {
-          1: "Special Meal",
-          2: "Shopping Item 1",
-          3: "Shopping Item 2",
-        },
-      },
-      {
-        title: "Seat No",
-        field: "seatno",
-      },
-    ],
-  });
+  let ancillaryServiceLookUp = {};
+  let passengersLookUp = {};
+
+  if (passengers.length > 0) {
+    passengers.map((passengers) => {
+      passengersLookUp[passengers.id] = passengers.name;
+    });
+  }
+  if (ancillaryServices.length > 0) {
+    ancillaryServices.map((ancillaryService) => {
+      ancillaryServiceLookUp[ancillaryService.id] = ancillaryService.service;
+    });
+  }
+  let columns = [
+    {
+      title: "Flight",
+      field: "flight",
+      lookup: { 1: "Flight 1", 2: "Flight 2", 3: "Flight 3" },
+    },
+    {
+      title: "Passenger",
+      field: "passenger",
+      lookup: passengersLookUp,
+    },
+    {
+      title: "Checked In",
+      field: "checkedIn",
+      lookup: { 1: "Yes", 2: "No" },
+    },
+    {
+      title: "Ancillary",
+      field: "service",
+      lookup: ancillaryServiceLookUp,
+    },
+    {
+      title: "Seat No",
+      field: "seatno",
+    },
+  ];
 
   useEffect(() => {
-    if (checkInPassengers.length === 0) {
-      loadCheckInPassengers().catch((error) => {
-        console.log("Loading checkInPassengers failed" + error);
-      });
+    loadAsyncData();
+  }, []);
+
+  async function loadAsyncData() {
+    try {
+      await loadPassengers();
+      await loadAncillaryServices();
+      await loadCheckInPassengers();
+    } catch (error) {
+      console.log("Loading checkInPassengers failed" + error);
     }
-  });
+  }
 
   function handleSave(checkInPassenger) {
     saveCheckInPassenger(checkInPassenger)
@@ -79,7 +91,7 @@ function CheckInPassengerPage({
   return (
     <MaterialTable
       title="Check-In Passenger"
-      columns={state.columns}
+      columns={columns}
       data={checkInPassengers}
       editable={{
         onRowAdd: (newData) =>
@@ -104,11 +116,13 @@ function CheckInPassengerPage({
 
 CheckInPassengerPage.propTypes = {
   checkInPassengers: propTypes.array.isRequired,
+  passengers: propTypes.array.isRequired,
+  ancillaryServices: propTypes.array.isRequired,
   loadCheckInPassengers: propTypes.func.isRequired,
   saveCheckInPassenger: propTypes.func.isRequired,
   deleteCheckInPassenger: propTypes.func.isRequired,
-  loadPassengers: propTypes.func.isRequired,
   loadAncillaryServices: propTypes.func.isRequired,
+  loadPassengers: propTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -123,8 +137,8 @@ const mapDispatchToProps = {
   loadCheckInPassengers,
   saveCheckInPassenger,
   deleteCheckInPassenger,
-  loadPassengers,
   loadAncillaryServices,
+  loadPassengers,
 };
 
 export default connect(

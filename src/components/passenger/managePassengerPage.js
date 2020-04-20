@@ -7,7 +7,6 @@ import {
   deletePassenger,
 } from "../../redux/actions/passengerAction";
 import propTypes from "prop-types";
-import { toast } from "react-toastify";
 
 function ManagePassengerPage({
   passengers,
@@ -16,8 +15,7 @@ function ManagePassengerPage({
   deletePassenger,
   ...props
 }) {
-  console.log("passengers list", passengers);
-  const [state, setState] = useState({
+  const [state] = useState({
     columns: [
       { title: "Name", field: "name" },
       { title: "Passport Details", field: "passport" },
@@ -31,7 +29,7 @@ function ManagePassengerPage({
         console.log("Loading passengers failed" + error);
       });
     }
-  });
+  }, []);
 
   function handleSave(passenger) {
     savePassenger(passenger)

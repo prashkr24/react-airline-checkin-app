@@ -1,65 +1,67 @@
-import * as types from "./actionTypes";
-import * as ancillaryServiceApi from "../../api/ancillaryServiceApi";
-import { beginApiCall, apiCallError } from "./apiStatusActions";
+import * as types from './actionTypes'
+import * as ancillaryServiceApi from '../../api/ancillaryServiceApi'
+import { apiCallError } from './apiStatusActions'
 
 export function loadAncillaryServicesSuccess(ancillaryServices) {
-  return { type: types.LOAD_ANCILLARY_SERVICES_SUCCESS, ancillaryServices };
+    return { type: types.LOAD_ANCILLARY_SERVICES_SUCCESS, ancillaryServices }
 }
 
 export function createAncillaryServiceSuccess(ancillaryService) {
-  return { type: types.CREATE_ANCILLARY_SERVICE_SUCCESS, ancillaryService };
+    return { type: types.CREATE_ANCILLARY_SERVICE_SUCCESS, ancillaryService }
 }
 
 export function updateAncillaryServiceSuccess(ancillaryService) {
-  return { type: types.UPDATE_ANCILLARY_SERVICE_SUCCESS, ancillaryService };
+    return { type: types.UPDATE_ANCILLARY_SERVICE_SUCCESS, ancillaryService }
 }
 
 export function deleteAncillaryServiceOptimistic(ancillaryService) {
-  return { type: types.DELETE_ANCILLARY_SERVICE_OPTIMISTIC, ancillaryService };
+    return { type: types.DELETE_ANCILLARY_SERVICE_OPTIMISTIC, ancillaryService }
 }
 export function loadAncillaryServices() {
-  return function (dispatch) {
-    // dispatch(beginApiCall());
-    return ancillaryServiceApi
-      .getAncillaryServices()
-      .then((ancillaryServices) => {
-        console.log("ancillaryService action", ancillaryServices);
-        dispatch(loadAncillaryServicesSuccess(ancillaryServices));
-      })
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
+    return function (dispatch) {
+        return ancillaryServiceApi
+            .getAncillaryServices()
+            .then((ancillaryServices) => {
+                dispatch(loadAncillaryServicesSuccess(ancillaryServices))
+            })
+            .catch((error) => {
+                dispatch(apiCallError(error))
+                throw error
+            })
+    }
 }
 
 export function saveAncillaryService(ancillaryService) {
-  //eslint-disable-next-line no-unused-vars
-  return function (dispatch, getState) {
-    // dispatch(beginApiCall());
-    return ancillaryServiceApi
-      .saveAncillaryService(ancillaryService)
-      .then((savedAncillaryService) => {
-        ancillaryService.id
-          ? dispatch(updateAncillaryServiceSuccess(savedAncillaryService))
-          : dispatch(createAncillaryServiceSuccess(savedAncillaryService));
-      })
-      .catch((error) => {
-        dispatch(apiCallError(error));
-        throw error;
-      });
-  };
+    //eslint-disable-next-line no-unused-vars
+    return function (dispatch, getState) {
+        // dispatch(beginApiCall());
+        return ancillaryServiceApi
+            .saveAncillaryService(ancillaryService)
+            .then((savedAncillaryService) => {
+                ancillaryService.id
+                    ? dispatch(
+                          updateAncillaryServiceSuccess(savedAncillaryService)
+                      )
+                    : dispatch(
+                          createAncillaryServiceSuccess(savedAncillaryService)
+                      )
+            })
+            .catch((error) => {
+                dispatch(apiCallError(error))
+                throw error
+            })
+    }
 }
 
 export function deleteAncillaryService(ancillaryService) {
-  return function (dispatch) {
-    // Doing optimistic delete, so not dispatching begin/end api call
-    // actions, or apiCallError action since we're not showing the loading status for this.
-    // dispatch(deleteAncillaryServiceOptimistic(ancillaryService));
-    return ancillaryServiceApi
-      .deleteAncillaryService(ancillaryService.id)
-      .then((deletedAncillaryService) => {
-        dispatch(deleteAncillaryServiceOptimistic(ancillaryService));
-      });
-  };
+    return function (dispatch) {
+        // Doing optimistic delete, so not dispatching begin/end api call
+        // actions, or apiCallError action since we're not showing the loading status for this.
+        // dispatch(deleteAncillaryServiceOptimistic(ancillaryService));
+        return ancillaryServiceApi
+            .deleteAncillaryService(ancillaryService.id)
+            .then(() => {
+                dispatch(deleteAncillaryServiceOptimistic(ancillaryService))
+            })
+    }
 }

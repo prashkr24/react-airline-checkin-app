@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MaterialTable from "material-table";
 import { connect } from "react-redux";
 import {
@@ -7,7 +7,6 @@ import {
   deleteAncillaryService,
 } from "../../redux/actions/ancillarySeriveAction";
 import propTypes from "prop-types";
-import { toast } from "react-toastify";
 
 function ManageAncillaryServicePage({
   ancillaryServices,
@@ -16,21 +15,17 @@ function ManageAncillaryServicePage({
   deleteAncillaryService,
   ...props
 }) {
-  console.log("ancillaryServices list", ancillaryServices);
-  const [state, setState] = useState({
-    columns: [
-      {
-        title: "Flight",
-        field: "flight",
-        lookup: { 1: "Flight 1", 2: "Flight 2", 3: "Flight 3" },
-      },
-      {
-        title: "Service",
-        field: "service",
-        lookup: { 1: "Special Meal", 2: "Shopping Item 1", 3: "Shopping Item 2" },
-      },
-    ],
-  });
+  const columns = [
+    {
+      title: "Flight",
+      field: "flight",
+      lookup: { 1: "Flight 1", 2: "Flight 2", 3: "Flight 3" },
+    },
+    {
+      title: "Service",
+      field: "service",
+    },
+  ];
 
   useEffect(() => {
     if (ancillaryServices.length === 0) {
@@ -38,7 +33,7 @@ function ManageAncillaryServicePage({
         console.log("Loading courses failed" + error);
       });
     }
-  });
+  }, []);
 
   function handleSave(ancillaryService) {
     saveAncillaryService(ancillaryService)
@@ -56,7 +51,7 @@ function ManageAncillaryServicePage({
   return (
     <MaterialTable
       title="Manage AncillaryService"
-      columns={state.columns}
+      columns={columns}
       data={ancillaryServices}
       editable={{
         onRowAdd: (newData) =>
@@ -80,7 +75,7 @@ function ManageAncillaryServicePage({
 }
 
 ManageAncillaryServicePage.propTypes = {
-  courses: propTypes.array.isRequired,
+  ancillaryServices: propTypes.array.isRequired,
   loadAncillaryServices: propTypes.func.isRequired,
   saveAncillaryService: propTypes.func.isRequired,
   deleteAncillaryService: propTypes.func.isRequired,
