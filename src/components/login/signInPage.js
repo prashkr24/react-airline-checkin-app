@@ -4,10 +4,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
@@ -47,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+// eslint-disable-next-line react/prop-types
 export default function SignInPage({ history }) {
     const classes = useStyles()
     const [state, setState] = React.useState({
@@ -65,10 +63,12 @@ export default function SignInPage({ history }) {
         if (username === 'admin') {
             localStorage.setItem('username', username)
             localStorage.setItem('role', 'admin')
+            // eslint-disable-next-line react/prop-types
             history.push('/dashboard')
         } else if (username === 'staff') {
             localStorage.setItem('username', username)
             localStorage.setItem('role', 'staff')
+            // eslint-disable-next-line react/prop-types
             history.push('/dashboard')
         } else {
             localStorage.clear()
