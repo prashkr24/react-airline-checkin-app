@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import HomeIcon from '@material-ui/icons/Home'
 import { NavLink } from 'react-router-dom'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
     const classes = useStyles()
-
+    const username = localStorage.getItem('username')
+    const role = localStorage.getItem('role')
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -36,9 +39,21 @@ export default function Header() {
                             <HomeIcon />
                         </NavLink>
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="subtitle2" className={classes.title}>
                         Airline Check-In System
                     </Typography>
+
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <NavLink to="/signIn">
+                        <Button color="inherit">Logout</Button>
+                    </NavLink>
                 </Toolbar>
             </AppBar>
         </div>
