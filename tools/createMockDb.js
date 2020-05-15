@@ -4,15 +4,11 @@ const path = require("path");
 const mockData = require("./mockData");
 
 const {
-  courses,
-  authors,
   passengers,
   ancillaryServices,
   checkInPassengers,
 } = mockData;
 const data = JSON.stringify({
-  courses,
-  authors,
   passengers,
   ancillaryServices,
   checkInPassengers,

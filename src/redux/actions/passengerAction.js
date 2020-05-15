@@ -26,7 +26,7 @@ export function loadPassengers() {
             })
             .catch((error) => {
                 dispatch(apiCallError(error))
-                throw error
+                
             })
     }
 }
@@ -44,7 +44,7 @@ export function savePassenger(passenger) {
             })
             .catch((error) => {
                 dispatch(apiCallError(error))
-                throw error
+                
             })
     }
 }

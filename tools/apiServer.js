@@ -45,24 +45,6 @@ server.use((req, res, next) => {
   next();
 });
 
-server.post("/courses/", function (req, res, next) {
-  const error = validateCourse(req.body);
-  if (error) {
-    res.status(400).send(error);
-  } else {
-    req.body.slug = createSlug(req.body.title); // Generate a slug for new courses.
-    next();
-  }
-});
-
-server.post("/passengers/", function (req, res, next) {
-  const error = validateCourse(req.body);
-  if (error) {
-    res.status(400).send(error);
-  } else {
-    next();
-  }
-});
 
 server.post("/ancillaryServices/", function (req, res, next) {
   const error = validateAncillaryService(req.body);
