@@ -38,16 +38,19 @@ function InFlightPage({
         {
             title: 'Flight',
             field: 'flight',
+            editable: 'never',
             lookup: { 1: 'Flight 1', 2: 'Flight 2', 3: 'Flight 3' },
         },
         {
             title: 'Passenger',
             field: 'passenger',
+            editable: 'never',
             lookup: passengersLookUp,
         },
         {
             title: 'Checked In',
             field: 'checkedIn',
+            editable: 'never',
             lookup: { 1: 'Yes', 2: 'No' },
         },
         {
@@ -57,6 +60,7 @@ function InFlightPage({
         },
         {
             title: 'Seat No',
+            editable: 'never',
             field: 'seatno',
         },
     ]

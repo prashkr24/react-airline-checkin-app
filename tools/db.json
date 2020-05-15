@@ -47,7 +47,7 @@
       "id": 1,
       "flight": 1,
       "passenger": 1,
-      "service": 1,
+      "service": "1",
       "checkedIn": 1,
       "seatno": "A101"
     }
