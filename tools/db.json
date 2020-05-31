@@ -2,20 +2,29 @@
   "passengers": [
     {
       "name": "Shijith",
-      "passport": "112233",
+      "passport": "12345",
       "address": "Kerala",
-      "dob": "2020-05-31T06:40:18.846Z",
-      "weelchair": true,
+      "dob": "2020-05-20T13:20:00.000Z",
+      "weelchair": false,
       "infant": true,
+      "specialMeals": true,
+      "flight": "1",
       "seatno": "A1",
       "id": 1,
-      "createdAt": 1590907248160
+      "createdAt": 1590931252401
     },
     {
-      "weelchair": true,
+      "name": "Sinju",
+      "passport": "12345",
+      "address": "Kerala",
+      "dob": "2020-05-14T14:09:00.000Z",
       "infant": true,
+      "specialMeals": true,
+      "weelchair": true,
+      "flight": "1",
+      "seatno": "A2",
       "id": 2,
-      "createdAt": 1590907271945
+      "createdAt": 1590934209055
     }
   ],
   "ancillaryServices": [

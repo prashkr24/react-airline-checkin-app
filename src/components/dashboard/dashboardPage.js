@@ -26,7 +26,7 @@ export default function DashboardPage() {
 
     return (
         <div className={classes.root}>
-            {role === 'admin' && (
+            {role === 'staff' && (
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <Paper className={classes.paper}>

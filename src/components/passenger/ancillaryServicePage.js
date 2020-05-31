@@ -21,6 +21,11 @@ function ManageAncillaryServicePage({
             lookup: { 1: 'Flight 1', 2: 'Flight 2', 3: 'Flight 3' },
         },
         {
+            title: 'Service Type',
+            field: 'type',
+            lookup: { 1: 'Sepcial Meals', 2: 'Shopping Items' },
+        },
+        {
             title: 'Service',
             field: 'service',
         },
@@ -45,6 +50,10 @@ function ManageAncillaryServicePage({
             title="Manage AncillaryService"
             columns={columns}
             data={ancillaryServices}
+            options={{
+                actionsColumnIndex: -1,
+                filtering: true,
+            }}
             editable={{
                 onRowAdd: (newData) =>
                     new Promise((resolve) => {

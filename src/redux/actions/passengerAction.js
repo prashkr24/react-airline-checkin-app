@@ -17,7 +17,7 @@ export function updatePassengerSuccess(passenger) {
 export function deletePassengerOptimistic(passenger) {
     return { type: types.DELETE_PASSENGER_OPTIMISTIC, passenger }
 }
-export function loadPassengers(filter) {
+export function loadPassengers(filter = { mandarotyFileds: false }) {
     return function (dispatch) {
         return passengerApi
             .getPassengers()
