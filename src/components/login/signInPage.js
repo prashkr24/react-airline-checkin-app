@@ -10,6 +10,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { GoogleLogin } from 'react-google-login'
+
+const responseGoogle = (response) => {
+    console.log(response)
+}
 
 function Copyright() {
     return (
@@ -125,6 +130,13 @@ export default function SignInPage({ history }) {
                         Sign In
                     </Button>
                 </form>
+                <GoogleLogin
+                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
             </div>
             <Box mt={8}>
                 <Copyright />

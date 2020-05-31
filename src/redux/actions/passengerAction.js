@@ -2,8 +2,8 @@ import * as types from '../actions/actionTypes'
 import * as passengerApi from '../../api/passengerApi'
 import { apiCallError } from './apiStatusActions'
 
-export function loadPassengersSuccess(passengers) {
-    return { type: types.LOAD_PASSENGERS_SUCCESS, passengers }
+export function loadPassengersSuccess(passengers, filter) {
+    return { type: types.LOAD_PASSENGERS_SUCCESS, passengers, filter }
 }
 
 export function createPassengerSuccess(passenger) {
@@ -17,16 +17,15 @@ export function updatePassengerSuccess(passenger) {
 export function deletePassengerOptimistic(passenger) {
     return { type: types.DELETE_PASSENGER_OPTIMISTIC, passenger }
 }
-export function loadPassengers() {
+export function loadPassengers(filter) {
     return function (dispatch) {
         return passengerApi
             .getPassengers()
             .then((passengers) => {
-                dispatch(loadPassengersSuccess(passengers))
+                dispatch(loadPassengersSuccess(passengers, filter))
             })
             .catch((error) => {
                 dispatch(apiCallError(error))
-                
             })
     }
 }
@@ -44,7 +43,6 @@ export function savePassenger(passenger) {
             })
             .catch((error) => {
                 dispatch(apiCallError(error))
-                
             })
     }
 }

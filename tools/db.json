@@ -1,28 +1,21 @@
 {
   "passengers": [
     {
-      "id": 1,
       "name": "Shijith",
-      "passport": "1111",
-      "address": "address 1"
+      "passport": "112233",
+      "address": "Kerala",
+      "dob": "2020-05-31T06:40:18.846Z",
+      "weelchair": true,
+      "infant": true,
+      "seatno": "A1",
+      "id": 1,
+      "createdAt": 1590907248160
     },
     {
+      "weelchair": true,
+      "infant": true,
       "id": 2,
-      "name": "sinju",
-      "passport": "2222",
-      "address": "address 1"
-    },
-    {
-      "id": 3,
-      "name": "Tara",
-      "passport": "3333",
-      "address": "address 1"
-    },
-    {
-      "id": 4,
-      "name": "Jeeva",
-      "passport": "4444",
-      "address": "address 1"
+      "createdAt": 1590907271945
     }
   ],
   "ancillaryServices": [
@@ -47,9 +40,17 @@
       "id": 1,
       "flight": 1,
       "passenger": 1,
-      "service": "1",
+      "service": 1,
       "checkedIn": 1,
       "seatno": "A101"
+    },
+    {
+      "id": 2,
+      "flight": 1,
+      "passenger": 2,
+      "service": 1,
+      "checkedIn": 1,
+      "seatno": "A102"
     }
   ]
 }

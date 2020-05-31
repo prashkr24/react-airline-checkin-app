@@ -16,17 +16,52 @@ function ManagePassengerPage({
 }) {
     const [state] = useState({
         columns: [
-            { title: 'Name', field: 'name' },
-            { title: 'Passport Details', field: 'passport' },
+            {
+                title: 'Name',
+                field: 'name',
+            },
+            { title: 'Passport No', field: 'passport' },
             { title: 'Address', field: 'address' },
+            { title: 'DOB', field: 'dob', type: 'date' },
+            {
+                title: 'Weelchair',
+                field: 'weelchair',
+                type: 'boolean',
+            },
+            { title: 'Infant', field: 'infant', type: 'boolean' },
+            {
+                title: 'Spl Meals',
+                field: 'specialMeals',
+                type: 'boolean',
+            },
+            {
+                title: 'Sean No',
+                field: 'seatno',
+                lookup: {
+                    A1: 'A1',
+                    B1: 'B1',
+                    C1: 'C1',
+                    D1: 'D1',
+                    E1: 'E1',
+                    F1: 'F1',
+                    A2: 'A2',
+                    B2: 'B2',
+                    C2: 'C2',
+                    D2: 'D2',
+                    E2: 'E2',
+                    F2: 'F2',
+                },
+            },
         ],
     })
 
+    const [mandatoryFilter, setMandatoryfilter] = useState(true)
+
     useEffect(() => {
         if (passengers.length === 0) {
-            loadPassengers().catch(() => {})
+            loadPassengers({ mandarotyFileds: false }).catch(() => {})
         }
-    }, [])
+    }, [passengers])
 
     function handleSave(passenger) {
         savePassenger(passenger)
@@ -41,6 +76,22 @@ function ManagePassengerPage({
             title="Manage Passenger"
             columns={state.columns}
             data={passengers}
+            actions={[
+                {
+                    icon: 'filter_list',
+                    tooltip:
+                        'Filter passengers by missing mandatory requirements (Passport,Address & DOB)',
+                    isFreeAction: true,
+                    onClick: (event) => {
+                        setMandatoryfilter(!mandatoryFilter)
+                        loadPassengers({ mandarotyFileds: mandatoryFilter })
+                    },
+                },
+            ]}
+            options={{
+                actionsColumnIndex: -1,
+                filtering: true,
+            }}
             editable={{
                 onRowAdd: (newData) =>
                     new Promise((resolve) => {
