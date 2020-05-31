@@ -55,6 +55,8 @@ function CheckInPassengerPage({
 }) {
     let ancillaryServiceLookUp = {}
     let passengersLookUp = {}
+    //let selectedPassenger = {}
+    let [selectedPassenger, setSelectedPassenger] = React.useState({})
 
     let seatColumns = ['A', 'B', 'C']
     let seatRows = ['1', '2', '3']
@@ -103,9 +105,9 @@ function CheckInPassengerPage({
 
     async function loadAsyncData() {
         try {
-            await loadPassengers()
-            await loadAncillaryServices()
-            await loadCheckInPassengers()
+            await loadPassengers({ mandarotyFileds: false })
+            //await loadAncillaryServices()
+            //await loadCheckInPassengers()
         } catch (error) {
             // eslint-disable-next-line no-console
             console.log(error)
@@ -127,29 +129,32 @@ function CheckInPassengerPage({
     const classes = useStyles()
 
     const noOfRows = 10
-
-    let seatNo = 'A1'
-
-    const [passengerCheckedIn, SetPassengerCheckedIn] = React.useState(false)
     const [checked, setChecked] = React.useState(true)
 
+    function setPassengerCheckIn(passenger) {
+        console.log('passenger', passenger)
+        selectedPassenger = passenger
+    }
+
     function isPassengerCheckedIn(seatno) {
-        console.log(seatno)
         let checkedIn = false
-        let passenger = {}
+        let passenger = false
         passengers.map((item) => {
             if (item.seatno === seatno) {
                 checkedIn = true
                 passenger = item
             }
         })
-        console.log(checkedIn)
         if (checkedIn) {
             return (
                 <Button
                     className={classes.button}
                     variant="contained"
                     color="primary"
+                    onClick={(event) => {
+                        console.log(passenger)
+                        setSelectedPassenger(passenger)
+                    }}
                 >
                     {seatno}
                     <AccessibleIcon
@@ -236,30 +241,55 @@ function CheckInPassengerPage({
                                 </ListItem>
                                 <ListItem divider>
                                     <ListItemText primary="Seat No" />
-                                    A1
+                                    {selectedPassenger.seatno}
                                 </ListItem>
                                 <ListItem divider>
                                     <ListItemText primary="Name" />
-                                    Shijith
+                                    {selectedPassenger.name}
                                 </ListItem>
                                 <Divider />
                                 <ListItem divider>
                                     <ListItemText primary="Passport" />
-                                    112233
+                                    {selectedPassenger.passport}
                                 </ListItem>
                                 <ListItem divider>
                                     <ListItemText primary="Address" />
-                                    Bangalore
+                                    {selectedPassenger.address}
                                 </ListItem>
                                 <ListItem divider>
                                     <ListItemText primary="DOB" />
-                                    14.03.1986
+                                    {selectedPassenger.dob}
                                 </ListItem>
                                 <ListItem divider>
                                     <ListItemText primary="Ancillary Services" />
-                                    <RestaurantMenuIcon />
-                                    <AccessibleIcon />
-                                    <ShoppingCartIcon />
+                                    <AccessibleIcon
+                                        color={
+                                            selectedPassenger.specialMeals
+                                                ? 'default'
+                                                : 'primary'
+                                        }
+                                    />
+                                    <ChildFriendlyIcon
+                                        color={
+                                            selectedPassenger.weelchair
+                                                ? 'default'
+                                                : 'primary'
+                                        }
+                                    />
+                                    <RestaurantMenuIcon
+                                        color={
+                                            selectedPassenger.infant
+                                                ? 'default'
+                                                : 'primary'
+                                        }
+                                    />
+                                    <ShoppingCartIcon
+                                        color={
+                                            selectedPassenger.infant
+                                                ? 'default'
+                                                : 'primary'
+                                        }
+                                    />
                                 </ListItem>
                                 <Divider light />
                             </List>
