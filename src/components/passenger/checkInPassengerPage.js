@@ -6,7 +6,10 @@ import {
     saveCheckInPassenger,
     deleteCheckInPassenger,
 } from '../../redux/actions/checkInPassengerAction'
-import { loadPassengers } from '../../redux/actions/passengerAction'
+import {
+    loadPassengers,
+    savePassenger,
+} from '../../redux/actions/passengerAction'
 import { loadAncillaryServices } from '../../redux/actions/ancillarySeriveAction'
 import propTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper'
@@ -23,6 +26,7 @@ import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import Checkbox from '@material-ui/core/Checkbox'
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly'
+import SaveIcon from '@material-ui/icons/Save'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,6 +55,7 @@ function CheckInPassengerPage({
     loadAncillaryServices,
     loadPassengers,
     passengers,
+    savePassenger,
     ancillaryServices,
 }) {
     let ancillaryServiceLookUp = {}
@@ -116,11 +121,12 @@ function CheckInPassengerPage({
 
     const handleChange = (event) => {
         setChecked(event.target.checked)
+        selectedPassenger.checkedIn = event.target.checked
     }
 
-    function handleSave(checkInPassenger) {
-        saveCheckInPassenger(checkInPassenger)
-    }
+    // function handleSave(checkInPassenger) {
+    //     saveCheckInPassenger(checkInPassenger)
+    // }
 
     async function handleDeleteCheckInPassenger(checkInPassenger) {
         await deleteCheckInPassenger(checkInPassenger)
@@ -129,11 +135,18 @@ function CheckInPassengerPage({
     const classes = useStyles()
 
     const noOfRows = 10
-    const [checked, setChecked] = React.useState(true)
+    const [checked, setChecked] = React.useState(false)
 
     function setPassengerCheckIn(passenger) {
         console.log('passenger', passenger)
-        selectedPassenger = passenger
+        setSelectedPassenger(passenger)
+        setChecked(passenger.checkedIn)
+    }
+
+    function handleSave(passenger) {
+        console.log('passenger', passenger)
+
+        savePassenger(passenger)
     }
 
     function isPassengerCheckedIn(seatno) {
@@ -153,7 +166,7 @@ function CheckInPassengerPage({
                     color="primary"
                     onClick={(event) => {
                         console.log(passenger)
-                        setSelectedPassenger(passenger)
+                        setPassengerCheckIn(passenger)
                     }}
                 >
                     {seatno}
@@ -173,7 +186,13 @@ function CheckInPassengerPage({
             )
         } else {
             return (
-                <Button className={classes.button} variant="contained">
+                <Button
+                    className={classes.button}
+                    variant="contained"
+                    onClick={(event) => {
+                        setPassengerCheckIn({})
+                    }}
+                >
                     {seatno}
                     <AccessibleIcon />
                     <ChildFriendlyIcon />
@@ -228,6 +247,17 @@ function CheckInPassengerPage({
                             <List component="nav" className={classes.root}>
                                 <ListItem divider>
                                     <ListItemText primary="Passenger Details" />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        startIcon={<SaveIcon />}
+                                        onClick={(event) => {
+                                            handleSave(selectedPassenger)
+                                        }}
+                                    >
+                                        SAVE
+                                    </Button>
                                 </ListItem>
                                 <ListItem divider>
                                     <ListItemText primary="Checked In" />
@@ -310,6 +340,7 @@ CheckInPassengerPage.propTypes = {
     deleteCheckInPassenger: propTypes.func.isRequired,
     loadAncillaryServices: propTypes.func.isRequired,
     loadPassengers: propTypes.func.isRequired,
+    savePassenger: propTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
@@ -326,6 +357,7 @@ const mapDispatchToProps = {
     deleteCheckInPassenger,
     loadAncillaryServices,
     loadPassengers,
+    savePassenger,
 }
 
 export default connect(
