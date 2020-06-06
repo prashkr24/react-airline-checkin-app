@@ -1,50 +1,114 @@
 {
   "passengers": [
     {
-      "name": "Shijith",
-      "passport": "1234",
-      "address": "Bangalore",
-      "dob": "2020-06-02T04:12:00.000Z",
+      "name": "shijith",
+      "passport": "12345",
+      "address": "bangalore",
+      "dob": "2020-06-16T08:33:00.000Z",
       "weelchair": true,
-      "infant": true,
+      "infant": false,
+      "specialMeals": false,
+      "flight": "1",
+      "seatno": "A2",
+      "id": 1,
+      "createdAt": 1591432460151,
+      "checkedIn": true
+    },
+    {
+      "name": "Sinju",
+      "passport": "12334",
+      "address": "bangalore",
+      "dob": "2020-04-15T09:20:00.000Z",
+      "weelchair": true,
       "specialMeals": true,
       "flight": "1",
       "seatno": "A1",
-      "id": 1,
-      "createdAt": 1590984760564,
+      "id": 2,
+      "createdAt": 1591435274639
+    },
+    {
+      "name": "Jeeva",
+      "passport": "11223344",
+      "address": "Thrissur",
+      "dob": "2020-06-09T09:21:00.000Z",
+      "weelchair": true,
+      "flight": "1",
+      "seatno": "C1",
+      "id": 3,
+      "createdAt": 1591435301037,
       "checkedIn": true
+    },
+    {
+      "name": "Tara",
+      "passport": "445566",
+      "address": "Thrissur",
+      "dob": "2020-06-09T09:21:00.000Z",
+      "specialMeals": true,
+      "flight": "1",
+      "seatno": "A3",
+      "id": 4,
+      "createdAt": 1591435325580,
+      "checkedIn": true,
+      "infant": true,
+      "weelchair": true
+    },
+    {
+      "name": "Mohanan",
+      "passport": "344556",
+      "address": "Thrissur",
+      "dob": "2020-06-02T09:22:00.000Z",
+      "weelchair": true,
+      "specialMeals": true,
+      "flight": "1",
+      "seatno": "B3",
+      "id": 5,
+      "createdAt": 1591435352171
+    },
+    {
+      "name": "sulochana",
+      "passport": "1111122",
+      "address": "Thrissur",
+      "dob": "2020-06-03T09:22:00.000Z",
+      "infant": true,
+      "flight": "1",
+      "seatno": "C3",
+      "id": 6,
+      "createdAt": 1591435380106,
+      "checkedIn": true
+    },
+    {
+      "createdAt": 1591445444602,
+      "id": 7
     }
   ],
   "ancillaryServices": [
     {
       "flight": 1,
       "service": "Special Meal",
-      "id": 1
+      "id": 1,
+      "type": "1"
     },
     {
       "flight": 1,
       "service": "Shopping Item 1",
-      "id": 2
+      "id": 2,
+      "type": "2"
     },
     {
       "flight": 1,
       "service": "Shopping Item 2",
-      "id": 3
+      "id": 3,
+      "type": "2"
     }
   ],
   "checkInPassengers": [
     {
-      "name": "Shijith",
-      "passport": "1234",
-      "address": "Bangalore",
-      "dob": "2020-06-02T04:12:00.000Z",
-      "weelchair": true,
-      "infant": true,
-      "specialMeals": true,
-      "flight": "1",
-      "seatno": "A1",
       "id": 1,
-      "createdAt": 1590984760564
+      "flight": 1,
+      "passenger": 1,
+      "service": 1,
+      "checkedIn": 1,
+      "seatno": "A101"
     },
     {
       "id": 2,
