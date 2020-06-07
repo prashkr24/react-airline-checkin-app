@@ -62,7 +62,8 @@
       "flight": "1",
       "seatno": "B3",
       "id": 5,
-      "createdAt": 1591435352171
+      "createdAt": 1591435352171,
+      "checkedIn": true
     },
     {
       "name": "sulochana",

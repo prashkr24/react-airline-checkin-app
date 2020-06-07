@@ -80,6 +80,13 @@ function CheckInPassengerPage({
         checkedIn: false,
     })
 
+    const [filter, setFilter] = React.useState({
+        weelchair: false,
+        infant: false,
+        specialMeals: false,
+        checkedIn: false,
+    })
+
     let seatColumns = ['A', 'B', 'C']
     let seatRows = ['1', '2', '3']
 
@@ -175,6 +182,34 @@ function CheckInPassengerPage({
             seatno: event.target.value,
         })
     }
+
+    const handleWeelChairFilter = (event) => {
+        setFilter({
+            ...filter,
+            weelchair: event.target.checked,
+        })
+    }
+
+    const handleInfantFilter = (event) => {
+        setFilter({
+            ...filter,
+            infant: event.target.checked,
+        })
+    }
+
+    const handleSpecialMealsFilter = (event) => {
+        setFilter({
+            ...filter,
+            specialMeals: event.target.checked,
+        })
+    }
+
+    const handleCheckedInFilter = (event) => {
+        setFilter({
+            ...filter,
+            checkedIn: event.target.checked,
+        })
+    }
     // function handleSave(checkInPassenger) {
     //     saveCheckInPassenger(checkInPassenger)
     // }
@@ -229,13 +264,26 @@ function CheckInPassengerPage({
 
     function isPassengerCheckedIn(seatno) {
         let checkedIn = false
-        let passenger = false
+        let passenger = {}
         passengers.map((item) => {
             if (item.seatno === seatno) {
                 checkedIn = true
                 passenger = item
             }
         })
+
+        console.log('passenger', passenger)
+        console.log('filter', filter)
+
+        if (
+            (filter.checkedIn === true && passenger.checkedIn !== true) ||
+            (filter.weelchair === true && passenger.weelchair !== true) ||
+            (filter.infant === true && passenger.infant !== true) ||
+            (filter.specialMeals === true && passenger.specialMeals !== true)
+        ) {
+            return false
+        }
+
         if (checkedIn) {
             return (
                 <Button
@@ -314,10 +362,47 @@ function CheckInPassengerPage({
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
+                            Filter:
+                            <Checkbox
+                                checked={filter.weelchair}
+                                onChange={(event) => {
+                                    handleWeelChairFilter(event)
+                                }}
+                                inputProps={{
+                                    'aria-label': 'primary checkbox',
+                                }}
+                            />
                             <AccessibleIcon /> Passenger required weelchair
+                            <Checkbox
+                                checked={filter.infant}
+                                onChange={(event) => {
+                                    handleInfantFilter(event)
+                                }}
+                                inputProps={{
+                                    'aria-label': 'primary checkbox',
+                                }}
+                            />
                             <ChildFriendlyIcon /> Passenger with infant
+                            <Checkbox
+                                checked={filter.specialMeals}
+                                onChange={(event) => {
+                                    handleSpecialMealsFilter(event)
+                                }}
+                                inputProps={{
+                                    'aria-label': 'primary checkbox',
+                                }}
+                            />
                             <RestaurantMenuIcon /> Passenger requested special
                             meal
+                            <Checkbox
+                                checked={filter.checkedIn}
+                                onChange={(event) => {
+                                    handleCheckedInFilter(event)
+                                }}
+                                inputProps={{
+                                    'aria-label': 'primary checkbox',
+                                }}
+                            />
                             <CheckCircleIcon /> Passenger checked in
                         </Paper>
                     </Grid>
