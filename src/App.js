@@ -19,7 +19,8 @@ const App = () => (
         <Container
             style={{
                 backgroundColor: '#cfe8fc',
-                height: '90vh',
+                minHeight: '100vh',
+                height: '100%',
                 paddingTop: '10px',
             }}
         >

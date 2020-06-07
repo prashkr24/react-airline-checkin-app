@@ -1,10 +1,10 @@
 {
   "passengers": [
     {
-      "name": "shijith",
-      "passport": "12345",
-      "address": "bangalore",
-      "dob": "2020-06-16T08:33:00.000Z",
+      "name": "Shijith",
+      "passport": "100000",
+      "address": "Bangalore",
+      "dob": "1986-03-14T08:33:00.000Z",
       "weelchair": true,
       "infant": false,
       "specialMeals": false,
@@ -16,7 +16,7 @@
     },
     {
       "name": "Sinju",
-      "passport": "12334",
+      "passport": "100001",
       "address": "bangalore",
       "dob": "2020-04-15T09:20:00.000Z",
       "weelchair": true,
@@ -66,7 +66,7 @@
       "checkedIn": true
     },
     {
-      "name": "sulochana",
+      "name": "Sulochana",
       "passport": "1111122",
       "address": "Thrissur",
       "dob": "2020-06-03T09:22:00.000Z",

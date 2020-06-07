@@ -30,6 +30,11 @@ import SaveIcon from '@material-ui/icons/Save'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
+import Typography from '@material-ui/core/Typography'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import FolderIcon from '@material-ui/icons/Folder'
+import FlightIcon from '@material-ui/icons/Flight'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,6 +53,12 @@ const useStyles = makeStyles((theme) => ({
     corridor: {
         margin: theme.spacing(2),
     },
+    demo: {
+        backgroundColor: theme.palette.background.paper,
+    },
+    title: {
+        margin: theme.spacing(4, 0, 2),
+    },
 }))
 
 function CheckInPassengerPage({
@@ -64,8 +75,7 @@ function CheckInPassengerPage({
     let ancillaryServiceLookUp = {}
     let passengersLookUp = {}
     //let selectedPassenger = {}
-
-    const [selectedPassenger, setSelectedPassenger] = React.useState({
+    const initialPassenger = {
         name: '',
         passport: '',
         address: '',
@@ -78,7 +88,12 @@ function CheckInPassengerPage({
         id: '',
         createdAt: '',
         checkedIn: false,
-    })
+    }
+    const [selectedPassenger, setSelectedPassenger] = React.useState(
+        initialPassenger
+    )
+
+    const [selectedFlight, setFlight] = React.useState(0)
 
     const [filter, setFilter] = React.useState({
         weelchair: false,
@@ -129,8 +144,8 @@ function CheckInPassengerPage({
     ]
 
     useEffect(() => {
-        loadAsyncData()
-    }, [])
+        if (selectedFlight > 0) loadAsyncData()
+    }, [selectedFlight])
 
     // useEffect(() => {
     //     console.log('rendering')
@@ -139,7 +154,10 @@ function CheckInPassengerPage({
 
     async function loadAsyncData() {
         try {
-            await loadPassengers({ mandarotyFileds: false })
+            await loadPassengers({
+                mandarotyFileds: false,
+                flight: selectedFlight,
+            })
             //await loadAncillaryServices()
             //await loadCheckInPassengers()
         } catch (error) {
@@ -230,8 +248,8 @@ function CheckInPassengerPage({
 
     function handleSave(passenger) {
         console.log('passenger', passenger)
-
         savePassenger(passenger)
+        setSelectedPassenger(initialPassenger)
         loadSeatNo()
     }
 
@@ -272,9 +290,6 @@ function CheckInPassengerPage({
             }
         })
 
-        console.log('passenger', passenger)
-        console.log('filter', filter)
-
         if (
             (filter.checkedIn === true && passenger.checkedIn !== true) ||
             (filter.weelchair === true && passenger.weelchair !== true) ||
@@ -286,30 +301,42 @@ function CheckInPassengerPage({
 
         if (checkedIn) {
             return (
-                <Button
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    onClick={(event) => {
-                        //console.log(passenger)
-                        setPassengerCheckIn(passenger)
-                    }}
-                >
-                    {seatno}
-                    <AccessibleIcon
-                        color={passenger.weelchair ? 'default' : 'primary'}
-                    />
-                    <ChildFriendlyIcon
-                        color={passenger.infant ? 'default' : 'primary'}
-                    />
-                    <RestaurantMenuIcon
-                        color={passenger.specialMeals ? 'default' : 'primary'}
-                    />
+                <React.Fragment>
+                    <Tooltip title={passenger.name} aria-label="add">
+                        <Button
+                            className={classes.button}
+                            variant="contained"
+                            color="primary"
+                            onClick={(event) => {
+                                //console.log(passenger)
+                                setPassengerCheckIn(passenger)
+                            }}
+                        >
+                            {seatno}
+                            <AccessibleIcon
+                                color={
+                                    passenger.weelchair ? 'default' : 'primary'
+                                }
+                            />
+                            <ChildFriendlyIcon
+                                color={passenger.infant ? 'default' : 'primary'}
+                            />
+                            <RestaurantMenuIcon
+                                color={
+                                    passenger.specialMeals
+                                        ? 'default'
+                                        : 'primary'
+                                }
+                            />
 
-                    <CheckCircleIcon
-                        color={passenger.checkedIn ? 'default' : 'primary'}
-                    ></CheckCircleIcon>
-                </Button>
+                            <CheckCircleIcon
+                                color={
+                                    passenger.checkedIn ? 'default' : 'primary'
+                                }
+                            ></CheckCircleIcon>
+                        </Button>
+                    </Tooltip>
+                </React.Fragment>
             )
         } else {
             return (
@@ -360,6 +387,64 @@ function CheckInPassengerPage({
             }
             <div className={classes.root}>
                 <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper}>
+                            <Grid item xs={12}>
+                                <div>
+                                    <List>
+                                        <ListItem>
+                                            <Button
+                                                variant="contained"
+                                                color={
+                                                    selectedFlight === 1
+                                                        ? 'primary'
+                                                        : 'default'
+                                                }
+                                                className={classes.button}
+                                                startIcon={<FlightIcon />}
+                                                onClick={(event) => {
+                                                    setFlight(1)
+                                                }}
+                                            >
+                                                Flight 1 (10:00 AM)
+                                            </Button>
+
+                                            <Button
+                                                variant="contained"
+                                                color={
+                                                    selectedFlight === 2
+                                                        ? 'primary'
+                                                        : 'default'
+                                                }
+                                                className={classes.button}
+                                                startIcon={<FlightIcon />}
+                                                onClick={(event) => {
+                                                    setFlight(2)
+                                                }}
+                                            >
+                                                Flight 2 (12:00 PM)
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color={
+                                                    selectedFlight === 3
+                                                        ? 'primary'
+                                                        : 'default'
+                                                }
+                                                className={classes.button}
+                                                startIcon={<FlightIcon />}
+                                                onClick={(event) => {
+                                                    setFlight(3)
+                                                }}
+                                            >
+                                                Flight 3 (18:00 PM)
+                                            </Button>
+                                        </ListItem>
+                                    </List>
+                                </div>
+                            </Grid>
+                        </Paper>
+                    </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             Filter:
@@ -425,6 +510,9 @@ function CheckInPassengerPage({
                                     <Button
                                         variant="contained"
                                         color="primary"
+                                        disabled={
+                                            !selectedPassenger.name.length
+                                        }
                                         className={classes.button}
                                         startIcon={<SaveIcon />}
                                         onClick={(event) => {
