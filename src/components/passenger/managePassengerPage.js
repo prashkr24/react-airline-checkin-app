@@ -57,10 +57,11 @@ function ManagePassengerPage({
     const [mandatoryFilter, setMandatoryfilter] = useState(true)
 
     useEffect(() => {
-        if (passengers.length === 0) {
-            loadPassengers({ mandarotyFileds: false }).catch(() => {})
-        }
-    }, [passengers])
+        loadPassengers({
+            mandarotyFileds: false,
+            flight: 0,
+        }).catch(() => {})
+    }, [])
 
     function handleSave(passenger) {
         savePassenger(passenger)

@@ -26,7 +26,6 @@ export function loadAncillaryServices() {
             })
             .catch((error) => {
                 dispatch(apiCallError(error))
-                
             })
     }
 }
@@ -48,7 +47,6 @@ export function saveAncillaryService(ancillaryService) {
             })
             .catch((error) => {
                 dispatch(apiCallError(error))
-                
             })
     }
 }

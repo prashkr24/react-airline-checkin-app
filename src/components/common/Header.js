@@ -27,16 +27,15 @@ export default function Header() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="menu"
-                    >
-                        <NavLink to="/dashboard" activeClassName="selected">
+                    <NavLink to="/dashboard" activeClassName="selected">
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            aria-label="menu"
+                        >
                             <HomeIcon />
-                        </NavLink>
-                    </IconButton>
+                        </IconButton>
+                    </NavLink>
                     <Typography variant="subtitle2" className={classes.title}>
                         Airline Check-In System
                     </Typography>

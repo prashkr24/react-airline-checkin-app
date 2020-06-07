@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import MaterialTable from 'material-table'
 import { connect } from 'react-redux'
 import {
     loadCheckInPassengers,
@@ -16,23 +15,18 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Divider from '@material-ui/core/Divider'
 import AccessibleIcon from '@material-ui/icons/Accessible'
 import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import Checkbox from '@material-ui/core/Checkbox'
 import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly'
 import SaveIcon from '@material-ui/icons/Save'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import Typography from '@material-ui/core/Typography'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import FolderIcon from '@material-ui/icons/Folder'
 import FlightIcon from '@material-ui/icons/Flight'
 import Tooltip from '@material-ui/core/Tooltip'
 
@@ -41,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     paper: {
-        padding: theme.spacing(3),
+        padding: theme.spacing(1),
         margin: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
@@ -51,22 +45,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     },
     corridor: {
-        margin: theme.spacing(2),
-    },
-    demo: {
-        backgroundColor: theme.palette.background.paper,
-    },
-    title: {
-        margin: theme.spacing(4, 0, 2),
+        margin: theme.spacing(1),
     },
 }))
 
 function CheckInPassengerPage({
-    checkInPassengers,
-    loadCheckInPassengers,
-    saveCheckInPassenger,
-    deleteCheckInPassenger,
-    loadAncillaryServices,
     loadPassengers,
     passengers,
     savePassenger,
@@ -74,7 +57,6 @@ function CheckInPassengerPage({
 }) {
     let ancillaryServiceLookUp = {}
     let passengersLookUp = {}
-    //let selectedPassenger = {}
     const initialPassenger = {
         name: '',
         passport: '',
@@ -93,7 +75,7 @@ function CheckInPassengerPage({
         initialPassenger
     )
 
-    const [selectedFlight, setFlight] = React.useState(0)
+    const [selectedFlight, setFlight] = React.useState(1)
 
     const [filter, setFilter] = React.useState({
         weelchair: false,
@@ -102,8 +84,8 @@ function CheckInPassengerPage({
         checkedIn: false,
     })
 
-    let seatColumns = ['A', 'B', 'C']
-    let seatRows = ['1', '2', '3']
+    const seatColumns = ['A', 'B', 'C']
+    const seatRows = ['1', '2', '3']
 
     if (passengers.length > 0) {
         passengers.map((passengers) => {
@@ -144,13 +126,8 @@ function CheckInPassengerPage({
     ]
 
     useEffect(() => {
-        if (selectedFlight > 0) loadAsyncData()
+        loadAsyncData()
     }, [selectedFlight])
-
-    // useEffect(() => {
-    //     console.log('rendering')
-    //     //loadAsyncData()
-    // }, [selectedPassenger])
 
     async function loadAsyncData() {
         try {
@@ -158,8 +135,6 @@ function CheckInPassengerPage({
                 mandarotyFileds: false,
                 flight: selectedFlight,
             })
-            //await loadAncillaryServices()
-            //await loadCheckInPassengers()
         } catch (error) {
             // eslint-disable-next-line no-console
             console.log(error)
@@ -228,26 +203,14 @@ function CheckInPassengerPage({
             checkedIn: event.target.checked,
         })
     }
-    // function handleSave(checkInPassenger) {
-    //     saveCheckInPassenger(checkInPassenger)
-    // }
-
-    async function handleDeleteCheckInPassenger(checkInPassenger) {
-        await deleteCheckInPassenger(checkInPassenger)
-    }
 
     const classes = useStyles()
 
-    const noOfRows = 10
-    const [checked, setChecked] = React.useState(false)
-
     function setPassengerCheckIn(passenger) {
-        console.log('passenger', passenger)
         setSelectedPassenger(passenger)
     }
 
     function handleSave(passenger) {
-        console.log('passenger', passenger)
         savePassenger(passenger)
         setSelectedPassenger(initialPassenger)
         loadSeatNo()
@@ -308,7 +271,6 @@ function CheckInPassengerPage({
                             variant="contained"
                             color="primary"
                             onClick={(event) => {
-                                //console.log(passenger)
                                 setPassengerCheckIn(passenger)
                             }}
                         >
@@ -352,7 +314,6 @@ function CheckInPassengerPage({
                     <AccessibleIcon />
                     <ChildFriendlyIcon />
                     <RestaurantMenuIcon />
-                    {/* <ShoppingCartIcon /> */}
                     <CheckCircleIcon />
                 </Button>
             )
@@ -361,32 +322,8 @@ function CheckInPassengerPage({
 
     return (
         <React.Fragment>
-            {
-                // <MaterialTable
-                //     title="Check-In Passenger"
-                //     columns={columns}
-                //     data={checkInPassengers}
-                //     editable={{
-                //         onRowAdd: (newData) =>
-                //             new Promise((resolve) => {
-                //                 handleSave({ ...newData, id: null })
-                //                 resolve()
-                //             }),
-                //         onRowUpdate: (newData) =>
-                //             new Promise((resolve) => {
-                //                 resolve()
-                //                 handleSave(newData)
-                //             }),
-                //         onRowDelete: (oldData) =>
-                //             new Promise((resolve) => {
-                //                 resolve()
-                //                 handleDeleteCheckInPassenger(oldData)
-                //             }),
-                //     }}
-                // />
-            }
             <div className={classes.root}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             <Grid item xs={12}>
@@ -491,7 +428,7 @@ function CheckInPassengerPage({
                             <CheckCircleIcon /> Passenger checked in
                         </Paper>
                     </Grid>
-                    <Grid item justify="space-between">
+                    <Grid item xs={8} justify="space-between">
                         {seatColumns.map((seatColumn) => (
                             // eslint-disable-next-line react/jsx-key
                             <Paper className={classes.paper}>
@@ -502,7 +439,7 @@ function CheckInPassengerPage({
                         ))}
                     </Grid>
 
-                    <Grid item>
+                    <Grid item xs={4}>
                         <Paper className={classes.paper}>
                             <List component="nav" className={classes.root}>
                                 <ListItem divider>
@@ -539,12 +476,6 @@ function CheckInPassengerPage({
                                         onChange={handleSeatNo}
                                     >
                                         {loadSeatNo()}
-                                        {/* <MenuItem value="A1">A1</MenuItem>
-                                        <MenuItem value="B1">B1</MenuItem>
-                                        <MenuItem value="C1">C1</MenuItem>
-                                        <MenuItem value="A2">A2</MenuItem>
-                                        <MenuItem value="B2">B2</MenuItem>
-                                        <MenuItem value="C2">C2</MenuItem> */}
                                     </Select>
                                 </ListItem>
                                 <ListItem divider>
@@ -606,38 +537,7 @@ function CheckInPassengerPage({
                                             : 'primary'
                                     }
                                 />
-                                {/* <ListItem divider>
-                                    <ListItemText primary="Ancillary Services" />
-                                    <ListItemText primary="Checked In" />
 
-                                    <Button
-                                        className={classes.button}
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        <AccessibleIcon
-                                            color={
-                                                selectedPassenger.weelchair
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                        />
-                                        <ChildFriendlyIcon
-                                            color={
-                                                selectedPassenger.infant
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                        />
-                                        <RestaurantMenuIcon
-                                            color={
-                                                selectedPassenger.specialMeals
-                                                    ? 'default'
-                                                    : 'primary'
-                                            }
-                                        />
-                                    </Button>
-                                </ListItem> */}
                                 <Divider light />
                             </List>
                         </Paper>

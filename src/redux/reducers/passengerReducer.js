@@ -14,16 +14,19 @@ export default function passengerReducer(
                     : passenger
             )
         case types.LOAD_PASSENGERS_SUCCESS:
+            console.log(action.filter)
             if (action.filter.mandarotyFileds === true) {
                 return action.passengers.filter((item) => {
                     return action.filter.flight !== item.flight
                         ? false
                         : !item.passport || !item.address || !item.dob
                 })
-            } else {
+            } else if (action.filter.flight > 0) {
                 return action.passengers.filter((item) => {
                     return action.filter.flight != item.flight ? false : true
                 })
+            } else {
+                return action.passengers
             }
 
         case types.DELETE_PASSENGER_OPTIMISTIC:
